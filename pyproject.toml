@@ -1,0 +1,23 @@
+[project]
+name = "prototype"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "elasticsearch>=9.1.1",
+    "fastapi>=0.119.0",
+    "httpx>=0.28.1",
+    "openai>=2.3.0",
+    "pandas>=2.3.3",
+    "pymongo>=4.15.3",
+    "python-dotenv>=1.1.1",
+    "python-multipart>=0.0.20",
+    "redis>=6.4.0",
+    "requests>=2.32.5",
+    "scikit-learn>=1.7.2",
+    "transformers>=4.57.0",
+    "upstash-redis>=1.4.0",
+    "uvicorn>=0.37.0",
+]

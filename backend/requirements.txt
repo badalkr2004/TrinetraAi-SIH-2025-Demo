@@ -1,0 +1,15 @@
+# backend/requirements.txt
+fastapi
+uvicorn
+pymongo
+redis
+elasticsearch
+openai
+requests
+beautifulsoup4
+pandas
+scikit-learn
+transformers
+python-multipart
+python-dotenv
+httpx

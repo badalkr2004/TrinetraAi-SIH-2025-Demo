@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Projectile Motion Animation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f2f2f2;
+        margin: 0;
+        height: 100vh;
+      }
+      canvas {
+        border: 2px solid #333;
+        background-color: #fff;
+      }
+      .controls {
+        margin-top: 15px;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+      .info {
+        margin-top: 15px;
+        max-width: 600px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Projectile Motion Simulation</h1>
+    <canvas id="projectileCanvas" width="800" height="400"></canvas>
+
+    <div class="controls">
+      <label
+        >Initial Velocity (m/s):
+        <input type="number" id="velocity" value="50" />
+      </label>
+      <label
+        >Angle (degrees):
+        <input type="number" id="angle" value="45" />
+      </label>
+      <button onclick="startSimulation()">Start</button>
+      <button onclick="resetSimulation()">Reset</button>
+    </div>
+
+    <div class="info">
+      <p><strong>Projectile Motion Formulae:</strong></p>
+      <p>Horizontal Distance: <code>x = v · cos(θ) · t</code></p>
+      <p>Vertical Distance: <code>y = v · sin(θ) · t − (1/2) · g · t²</code></p>
+      <p>Gravity (g) = 9.8 m/s²</p>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("projectileCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const g = 9.8; // Gravity
+      let velocity,
+        angle,
+        time = 0,
+        interval;
+      const scale = 5; // Scale for drawing
+
+      function drawProjectile(x, y) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw ground line
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height - 20);
+        ctx.lineTo(canvas.width, canvas.height - 20);
+        ctx.strokeStyle = "#444";
+        ctx.stroke();
+
+        // Draw the projectile as a circle
+        ctx.beginPath();
+        ctx.arc(x, canvas.height - y - 20, 8, 0, Math.PI * 2);
+        ctx.fillStyle = "red";
+        ctx.fill();
+      }
+
+      function startSimulation() {
+        velocity = parseFloat(document.getElementById("velocity").value);
+        angle =
+          parseFloat(document.getElementById("angle").value) * (Math.PI / 180);
+        time = 0;
+
+        clearInterval(interval);
+        interval = setInterval(() => {
+          const x = velocity * Math.cos(angle) * time;
+          const y = velocity * Math.sin(angle) * time - 0.5 * g * time * time;
+
+          if (y < 0) {
+            clearInterval(interval);
+            return;
+          }
+
+          drawProjectile(x * scale, y * scale);
+          time += 0.1;
+        }, 50);
+      }
+
+      function resetSimulation() {
+        clearInterval(interval);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        time = 0;
+      }
+    </script>
+  </body>
+</html>
